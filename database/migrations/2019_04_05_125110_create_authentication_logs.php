@@ -15,13 +15,12 @@ class CreateAuthenticationLogs extends Migration
     {
         Schema::create('authentication_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('user_id');
-            $table->string('agent');
-            $table->string('ip_address');
-            $table->dateTime('login_time');
-            $table->dateTime('logout_time');
+            $table->integer('user_id');
+            $table->ipAddress('ip_address');
             $table->timestamps();
-        });
+       
+       
+    });
 
         
     }

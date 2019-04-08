@@ -16,24 +16,20 @@ use Faker\Generator as Faker;
 */
 
 
-        $factory->define(User::class, function (Faker $faker) {
-            return [
-                'user_name' => $faker->name,
-                'email' => $faker->unique()->safeEmail,
-                'email_verified_at' => now(),
-                'password' => bcrypt('admin'), // password
-                'remember_token' => Str::random(10),
-                'first_name' => $faker->firstName,
-                'last_name' => $faker->lastName,
-                'address' => $faker->address,
-                'house_number' => $faker->buildingNumber,
-                'postal_code' => $faker->postcode,
-                'city' => $faker->city,
-                'phone_number' => $faker->phoneNumber,
-                
-        
-            ];
-        
-        
-    
+$factory->define(App\User::class, function (Faker $faker) {
+    return [
+        'first_name' => $faker->firstName,
+        'last_name' => $faker->lastName,
+        'username' => $faker->unique()->userName,
+        'email' => $faker->unique()->safeEmail,
+        'password' => bcrypt('secret'),
+        'address' => $faker->address,
+        'house_number' => $faker->numberBetween(1, 1000),
+        'postal_code' => $faker->numberBetween(1000, 999999),
+        'city' => $faker->city,
+        'telephone_number' => $faker->unique()->numberBetween(1000000000, 9999999999),
+        'is_active' => 1,
+        'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+        'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    ];
 });
