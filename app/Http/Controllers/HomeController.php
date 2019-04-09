@@ -23,9 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);  
-        return view('/users',compact('users'));
-    }
+    //     $users = User::paginate(10);  
+    return view('/users');
+     }
     
    
 }

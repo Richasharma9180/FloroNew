@@ -51,7 +51,6 @@
                 <td>{{ $user['user_last_login'] ?
                 ( $user['user_last_login'][0]['created_at'] ?
                     \Carbon\Carbon::parse($user['user_last_login'][0]['created_at'])->format('d-M-Y H:i') : '' )  : '' }}</td>
-            </tr>
 
             @if (!empty($user['user_activity']))
                 <tr>
@@ -59,7 +58,7 @@
                     <td>Sr No</td>
                     <td>Field Name</td>
                     <td>Old Value</td>
-                    <td>Modified Value</td>
+                    <td>New Value</td>
                     <td>Modified By</td>
                     <td colspan="7"></td>
                 </tr>
@@ -69,9 +68,9 @@
                     <tr>
                         <td></td>
                         <td>{{ $count }}</td>
-                        <td>{{ $userHistory['column_name'] }}</td>
+                        <td>{{ $userHistory['field_name'] }}</td>
                         <td>{{ $userHistory['old_value'] }}</td>
-                        <td>{{ $userHistory['modified_value'] }}</td>
+                        <td>{{ $userHistory['new_value'] }}</td>
                         <td>{{ $userHistory['modified_by']['username'] }}</td>
                         <td colspan="7"></td>
                     </tr>

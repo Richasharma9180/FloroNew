@@ -40,11 +40,11 @@ class UserRepository extends Repository
             ->setRowsNumber(10)
             ->addQueryInstructions(function ($query){
                 $query->select('users.*');
-                // $query->selectRaw('MAX(authentication_logs.created_at) as last_login_at');
+                //$query->selectRaw('MAX(authentication_logs.created_at) as last_login_at');
                 $query->leftJoin('authentication_logs', 'authentication_logs.user_id', '=', 'users.id');
                 $query->where('users.id', '!=', Auth::id());
                 $query->where('users.is_active', 1);
-                // $query->groupBy('users.id');
+                //$query->groupBy('users.id');
             });
     }
 }

@@ -13,16 +13,19 @@ class CreateUserActivities extends Migration
      */
     public function up()
     {
+        
         Schema::create('user_activities', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
+            $table->string('entity_type')->comment('polymorphic relations (models, i.e. users table)');
+            $table->integer('entity_id')->comment('entity model reference id.');
             $table->string('old_value');
             $table->string('new_value');
             $table->string('field_name');
-            $table->string('modified_by');
+            $table->string('modified_by')->references('id')->on('users');
             $table->timestamps();
-        });
-    }
+            });
+            }
+    
 
     /**
      * Reverse the migrations.
