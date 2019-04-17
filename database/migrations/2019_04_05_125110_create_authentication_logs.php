@@ -17,6 +17,9 @@ class CreateAuthenticationLogs extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->ipAddress('ip_address');
+            $table->string('agent');
+            $table->dateTime('login_time');
+            $table->dateTime('logout_time');
             $table->timestamps();
        
        

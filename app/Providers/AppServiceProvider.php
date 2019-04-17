@@ -18,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
     {
         User::observe(UserObserver::class);
         Schema::defaultStringLength(191);
+        \Laravel\Passport\Passport::withCookieSerialization();
     }
 
     /**

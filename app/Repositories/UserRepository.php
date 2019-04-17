@@ -3,6 +3,8 @@ namespace App\Repositories;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Okipa\LaravelBootstrapTableList\TableList;
+use DB;
+use Illuminate\Http\Request;  
 class UserRepository extends Repository
 {
     /**
@@ -23,11 +25,8 @@ class UserRepository extends Repository
     {
         return User::class;
     }
-    /**
-     * Method to create the users list as view by using external "Okipa\LaravelBootstrapTableList" package.
-     *
-     * @return TableList
-     */
+
+   
     public function getUsersList() : TableList
     {
         return app(TableList::class)
@@ -47,4 +46,27 @@ class UserRepository extends Repository
                 //$query->groupBy('users.id');
             });
     }
-}
+
+
+    public function index()
+   {
+
+    $users = DB::table('users')
+     ->orderBy('first_name', 'desc')
+     ->paginate(10);
+      return $users;
+   }
+
+   public function sort(Request $request,User $user)
+   {
+    $data = $request->get('data');
+    $sortColumn = $request->get('sortColumn');
+    $sort = $request->get('sort');
+
+
+    $sort_users = User::orderBy($sortColumn,$sort) 
+    ->get();
+    return $sort_users;
+    return response()->json(['data'=>$ $user]);
+   }
+   }

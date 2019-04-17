@@ -28,7 +28,8 @@ class ExportUserService
      * @return void
      */
     public function processUserExport()
-    {
+    { 
+        //dd('sdasdsd11111');
         ProcessUserExportsJob::dispatch(Auth::user());
     }
 }

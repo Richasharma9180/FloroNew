@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Mail;
 use Okipa\LaravelBootstrapTableList\TableList;
 use Carbon\Carbon;
+use Illuminate\Http\Request;  
 
 
 class UserService
@@ -45,35 +46,36 @@ Mail::to($inputData['email'])->send(new UserCreatedEmail(Auth::user(), $user, ['
 return $user;
 }
 
-public function getAllUsers() : TableList
+ public function getAllUsers() : TableList
 {
-$table = $this->userRepository->getUsersList();
+ $table = $this->userRepository->getUsersList();
 $table->addColumn('username')
-->setTitle('User Name')
+ ->setTitle('User Name')
 ->isSortable()
-->isSearchable()
-->useForDestroyConfirmation();
-$table->addColumn('first_name')
-->setTitle('First Name')
-->isSortable();
-$table->addColumn('last_name')
-->setTitle('Last Name')
-->isSortable();
-$table->addColumn('email')
-->setTitle('Email')
-->isSearchable()
-->isSortable();
-$table->addColumn('created_at')
+ ->isSearchable()
+ ->useForDestroyConfirmation();
+ $table->addColumn('first_name')
+ ->setTitle('First Name')
+ ->isSortable();
+ $table->addColumn('last_name')
+ ->setTitle('Last Name')
+ ->isSortable();
+ $table->addColumn('email')
+ ->setTitle('Email')
+ ->isSearchable()
+ ->isSortable();
+ $table->addColumn('created_at')
 ->setTitle('Created At')
-->isSortable()
-->sortByDefault('desc')
-->setColumnDateTimeFormat('d-M-Y');
-$table->addColumn('last_login_at')
+ ->isSortable()
+ ->sortByDefault('desc')
+ ->setColumnDateTimeFormat('d-M-Y');
+ $table->addColumn('last_login_at')
 ->setTitle('Last Login At')
-->isSortable()
+ ->isSortable()
 ->setColumnDateTimeFormat('d-M-Y H:i');
 return $table;
-}
+ return $table->get();
+ }
 
 public function getUser(string $id)
 {
@@ -140,5 +142,20 @@ $trackableDataToInsert[] = $information;
 $this->userActivityRepository->insertMultipleRows($trackableDataToInsert);
 
 return true;
+}
+
+    public function index()
+    {
+    $users=$this->userRepository->index();
+    return $users;
+
+}
+
+public function Sort(Request $request)
+{
+  
+    $users=$this->userRepository->getSort($request);
+    return $users;
+    
 }
 }

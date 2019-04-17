@@ -22,6 +22,7 @@ class ProcessUserExportsJobService
      */
     public function processUserExports(User $user)
     {
+        //dd('sdasdsd');
         $this->user = $user;
 
         $this->unlinkExportFileIfExist();

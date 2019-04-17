@@ -3,6 +3,10 @@ namespace App\Services;
 use App\Repositories\AuthenticationLogRepository;
 use App\User;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Models\AuthenticationLog;
+
+
 
 class AuthenticationService
 {
@@ -28,11 +32,24 @@ class AuthenticationService
       */
    public function storeLoginActivityOfUser(Request $request, User $user)
    {
-         $logDetails = [
+   
+   //   'last_login_at' => Carbon::now()->toDateTimeString(),
+   //   'last_logout_at' => date('Y-m-d H:i:s'),
+   //   'last_login_ip' => $request->getClientIp(),
+   //   'htt   $a=auth()->id();
+   //   $user->find($a)->update([p_user_agent' => $request->server('HTTP_USER_AGENT'),
+   //    ]);
+
+         $logDetails =[ 
              'user_id' => $user->id,
              'ip_address' => $request->ip(),
-             
-        ];
+             'agent'=>$request->server('HTTP_USER_AGENT'),
+             'login_time'=>Carbon::now()->toDateTimeString(),
+
+             'logout_time'=>date('Y-m-d H:i:s')
+
+
+             ];
         $this->authenticationLogRepository->create($logDetails);
     }
 

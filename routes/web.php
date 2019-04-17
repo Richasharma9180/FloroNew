@@ -13,7 +13,7 @@ Route::get('/', function () {
     return redirect('/users');
 });
 Auth::routes(['register' => false]);
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
  Route::middleware(['auth' ])->group(function() {
     //, '2fa'

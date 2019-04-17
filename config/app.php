@@ -162,7 +162,9 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-
+        Laravel\Passport\PassportServiceProvider::class,
+        
+        Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         /*
          * Package Service Providers...
          */

@@ -11,26 +11,15 @@ use PragmaRX\Google2FA\Exceptions\InsecureCallException;
 
 class TwoFactorAuthController extends Controller
 {
-    /**
-     * @var TwoFactorAuthService $twoFactorAuthService
-     */
     private $twoFactorAuthService;
 
-    /**
-     * TwoFactorAuthController constructor.
-     *
-     * @param TwoFactorAuthService $twoFactorAuthService
-     */
+    
     public function __construct(TwoFactorAuthService $twoFactorAuthService)
     {
         $this->twoFactorAuthService = $twoFactorAuthService;
     }
 
-    /**
-     * Method to generate QR code, and generate it for further processing.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
+    
     public function show2faForm()
     {
         try {
@@ -44,11 +33,6 @@ class TwoFactorAuthController extends Controller
         return view('admin.twoFactorAuth.enableTwoFactorAuth')->with('data', $twoFactorAuthData);
     }
 
-    /**
-     * Method to generated secret code and store in the DB for the user.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function generate2faSecret()
     {
         try {
@@ -62,12 +46,6 @@ class TwoFactorAuthController extends Controller
             __('frontendMessages.SUCCESS_MESSAGES.SECRET_KEY_GENERATED'));
     }
 
-    /**
-     * Method to enable the 2FA for the user.
-     *
-     * @param EnableTwoFactorAuthRequest $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function enable2fa(EnableTwoFactorAuthRequest $request)
     {
         $result = $this->twoFactorAuthService->enableTwoFactorAuthentication($request);
@@ -81,12 +59,6 @@ class TwoFactorAuthController extends Controller
             __('frontendMessages.EXCEPTION_MESSAGES.INVALID_SECRET_CODE'));
     }
 
-    /**
-     * Method to disable 2FA for the user.
-     *
-     * @param DisableTwoFactorAuthRequest $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function disable2fa(DisableTwoFactorAuthRequest $request)
     {
         $result = $this->twoFactorAuthService->disableTwoFactorAuthentication($request);
@@ -100,12 +72,7 @@ class TwoFactorAuthController extends Controller
             __('frontendMessages.EXCEPTION_MESSAGES.PASSWORD_INVALID'));
     }
 
-    /**
-     * Method to generate or regenerate backup codes.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
+
     public function generate2FaBackupCodes()
     {
         $result = $this->twoFactorAuthService->generate2FaBackupCodes();
@@ -119,11 +86,7 @@ class TwoFactorAuthController extends Controller
             __('frontendMessages.EXCEPTION_MESSAGES.BACKUP_CODES_ERROR'));
     }
 
-    /**
-     * Method to download the backup codes for current logged in users.
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
-     */
+    
     public function download2FaBackupCodes()
     {
         $backupCodes = $this->twoFactorAuthService->getBackupCodes(true);

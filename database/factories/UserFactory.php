@@ -31,5 +31,6 @@ $factory->define(App\User::class, function (Faker $faker) {
         'is_active' => 1,
         'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
         'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+        'remember_token' => Str::random(10),
     ];
 });
